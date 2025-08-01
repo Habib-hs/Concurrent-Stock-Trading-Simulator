@@ -1,0 +1,21 @@
+WHEN TO USE MULTI-THREADING IN JAVA?
+
+✅ Multi-threading makes things FASTER when:
+- Independent tasks: Each thread works on different data
+- CPU-intensive work: Can use multiple CPU cores
+- I/O operations: While one thread waits for file/network, others continue working
+
+❌ Multi-threading makes things SLOWER when:
+- Shared resources: Multiple threads fighting for same data
+- Heavy synchronization: Threads waiting in line for locks
+- Context switching overhead: Too many threads switching back and forth
+
+// FASTER: Each trader analyzes different stocks independently
+Thread trader1 = new Thread(() -> analyzeStock("AAPL"));
+Thread trader2 = new Thread(() -> analyzeStock("GOOGL"));
+Thread trader3 = new Thread(() -> analyzeStock("MSFT"));
+
+// SLOWER: All traders updating same shared trade counter
+synchronized void updateTradeCounter() {
+    totalTrades++; // Only ONE trader can do this at a time
+}
